@@ -5,10 +5,7 @@ export const GET = async (request, { params }) => {
     try {
         await connectToDB();
 
-        const latestPrompt = await Prompt.findOne({
-            creator:params.id
-        })
-            .populate('creator');
+        const latestPrompt = await Prompt.find({ creator: params.id }).populate("creator")
         
         return new Response(JSON.stringify(latestPrompt), { status: 200 });
     } catch (error) {

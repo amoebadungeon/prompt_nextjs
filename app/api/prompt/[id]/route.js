@@ -6,9 +6,7 @@ export const GET = async (request, { params }) => {
     try {
         await connectToDB();
 
-        const latestPrompt = await Prompt.findById(
-            params.id
-        ).populate('creator');
+        const latestPrompt = await Prompt.findById(params.id).populate('creator');
         
         if(!latestPrompt) return  new Response("Failed to find prompts", { status: 404 });
 

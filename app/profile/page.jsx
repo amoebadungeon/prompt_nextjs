@@ -17,7 +17,7 @@ const Profile = () => {
            
             const data = await response.json();
             
-            setPosts([data])
+            setPosts(data)
           
         };
     
@@ -25,7 +25,7 @@ const Profile = () => {
             fetchaaa();
         }
     
-      }, []);
+      }, [session?.user.id]);
    
    
     const handleEdit = (post) =>{
