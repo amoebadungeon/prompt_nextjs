@@ -6,18 +6,13 @@ export const GET = async (request) => {
         await connectToDB();
 
         // Fetch the latest prompt
-        const latestPrompt = await Prompt.findOne({})
-            .sort({ createdAt: -1 })  // Sort by creation date in descending order
-            .populate('creator');
+        const latestPrompt = await Prompt.find({}).populate('creator');
 
         console.log("Latest Prompt:", latestPrompt);
 
         if (!latestPrompt) {
             return new Response("No prompts found", { status: 404 });
         }
-
-        // Delete all other prompts except the latest one
-        await Prompt.deleteMany({ _id: { $ne: latestPrompt._id } });
 
         return new Response(JSON.stringify(latestPrompt), { status: 200 });
     } catch (error) {
